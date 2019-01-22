@@ -1,0 +1,70 @@
+service:
+  name: ${self:custom.serviceName}
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ${env:REGION}
+  # profile: ${env:PROFILE}
+  environment:
+    JWKS_URI: ${ssm:/${self:custom.serviceName}/${env:STAGE}/JWKS_URI~true}
+    AUDIENCE: ${ssm:/${self:custom.serviceName}/${env:STAGE}/AUDIENCE~true}
+    TOKEN_ISSUER: ${ssm:/${self:custom.serviceName}/${env:STAGE}/TOKEN_ISSUER~true}
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  serviceName: fii-auth
+  stage: ${opt:stage, self:custom.defaultStage}
+  defaultStage: dev
+  stages:
+    - ${opt:stage}
+    - dev
+    - integration
+    - production
+
+functions:
+  auth:
+    handler: src/handlers/authorizer/index.default
+    cors: true
+    events:
+      - http:
+          path: /auth
+          method: post
+  health:
+    handler: src/handlers/healthCheck/index.default
+    cors: true
+    events:
+      - http:
+          path: /health
+          method: get
+          authorizer:
+            name: health-authorizer
+            arn: arn:aws:lambda:us-east-1:568614285549:function:fii-auth-dev-auth
+            identitySource: method.request.header.Authorization
+            resultTtlInSeconds: 0
+
+resources:
+  Resources:
+    GatewayResponse:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: EXPIRED_TOKEN
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        StatusCode: '401'
+    AuthFailureGatewayResponse:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: UNAUTHORIZED
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        StatusCode: '401'

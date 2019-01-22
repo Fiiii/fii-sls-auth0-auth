@@ -1,0 +1,18 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# Optional npm cache directory
+.npm
+
+# Webpack build
+.webpack
+
+envs.sh
+npm-debug*
+
+env.yml
+.env
