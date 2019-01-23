@@ -36,9 +36,9 @@ jobs:
       - attach_workspace:
           at: ~/fii-sls
       - run:
-          name: Deploy dev
+          name: Deploy development stage
           command: |
-            export STAGE=dev
+            export STAGE=development
             export REGION=$AWS_REGION
             yarn deploy
 
@@ -51,7 +51,7 @@ jobs:
       - attach_workspace:
           at: ~/fii-sls
       - run:
-          name: Deploy integration
+          name: Deploy integration stage
           command: |
             export STAGE=integration
             export REGION=$AWS_REGION
@@ -66,7 +66,7 @@ jobs:
       - attach_workspace:
           at: ~/fii-sls
       - run:
-          name: Deploy production
+          name: Deploy production stage
           command: |
             export STAGE=production
             export REGION=$AWS_REGION
