@@ -1,9 +1,5 @@
 import ApiAuthorizerHandler from './authorizerHandler'
 
-// export default init('ApiAuthorizerHandler', new Container(), (container) => {
-//   container.registerSingleton('ApiAuthorizerHandler', ApiAuthorizerHandler)
-// })
-
 const handler = async (event) => {
   try {
     const apiAuthorizerHandler = new ApiAuthorizerHandler()
