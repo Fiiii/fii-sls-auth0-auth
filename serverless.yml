@@ -7,9 +7,9 @@ provider:
   region: ${env:REGION}
   # profile: ${env:PROFILE}
   environment:
-    JWKS_URI: ${ssm:/${self:custom.serviceName}/${env:STAGE}/JWKS_URI}
-    AUDIENCE: ${ssm:/${self:custom.serviceName}/${env:STAGE}/AUDIENCE}
-    TOKEN_ISSUER: ${ssm:/${self:custom.serviceName}/${env:STAGE}/TOKEN_ISSUER}
+    JWKS_URI: ${ssm:/${self:custom.serviceName}/${env:STAGE}/JWKS_URI~true}
+    AUDIENCE: ${ssm:/${self:custom.serviceName}/${env:STAGE}/AUDIENCE~true}
+    TOKEN_ISSUER: ${ssm:/${self:custom.serviceName}/${env:STAGE}/TOKEN_ISSUER~true}
 
 plugins:
   - serverless-webpack
@@ -48,23 +48,5 @@ functions:
 
 resources:
   Resources:
-    GatewayResponse:
-      Type: 'AWS::ApiGateway::GatewayResponse'
-      Properties:
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-        ResponseType: EXPIRED_TOKEN
-        RestApiId:
-          Ref: 'ApiGatewayRestApi'
-        StatusCode: '401'
-    AuthFailureGatewayResponse:
-      Type: 'AWS::ApiGateway::GatewayResponse'
-      Properties:
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-        ResponseType: UNAUTHORIZED
-        RestApiId:
-          Ref: 'ApiGatewayRestApi'
-        StatusCode: '401'
+    - ${file(resources/gatewayResponse.yml)}
+    - ${file(resources/failResponse.yml)}
