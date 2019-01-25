@@ -16,7 +16,7 @@ provider:
       Action:
         - lambda:GetFunction
         - lambda:GetFunctionConfiguration
-
+        - lambda:GetLayerVersion
 
 plugins:
   - serverless-webpack
