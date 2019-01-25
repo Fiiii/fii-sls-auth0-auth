@@ -10,6 +10,13 @@ provider:
     JWKS_URI: ${ssm:/${self:custom.serviceName}/${env:STAGE}/JWKS_URI~true}
     AUDIENCE: ${ssm:/${self:custom.serviceName}/${env:STAGE}/AUDIENCE~true}
     TOKEN_ISSUER: ${ssm:/${self:custom.serviceName}/${env:STAGE}/TOKEN_ISSUER~true}
+  iamRoleStatements:
+    - Effect: Allow
+      Resource: arn:aws:lambda:us-west-2:800406105498:layer:nsolid-node-10:6
+      Action:
+        - lambda:GetFunction
+        - lambda:GetFunctionConfiguration
+
 
 plugins:
   - serverless-webpack
@@ -48,5 +55,7 @@ functions:
 
 resources:
   Resources:
-    - ${file(resources/gatewayResponse.yml)}
-    - ${file(resources/failResponse.yml)}
+    - ${file(resources/GatewayResponse.yml)}
+    - ${file(resources/FailResponse.yml)}
+    - ${file(resources/CognitoUserPool.yml)}
+    - ${file(resources/CognitoUserPoolClient.yml)}
