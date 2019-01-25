@@ -1,6 +1,10 @@
 service:
   name: ${self:custom.serviceName}
 
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
 provider:
   name: aws
   runtime: nodejs8.10
@@ -10,17 +14,7 @@ provider:
     JWKS_URI: ${ssm:/${self:custom.serviceName}/${env:STAGE}/JWKS_URI~true}
     AUDIENCE: ${ssm:/${self:custom.serviceName}/${env:STAGE}/AUDIENCE~true}
     TOKEN_ISSUER: ${ssm:/${self:custom.serviceName}/${env:STAGE}/TOKEN_ISSUER~true}
-  iamRoleStatements:
-    - Effect: Allow
-      Resource: '*'
-      Action:
-        - lambda:GetFunction
-        - lambda:GetFunctionConfiguration
-        - lambda:GetLayerVersion
-
-plugins:
-  - serverless-webpack
-  - serverless-offline
+    NSOLID_LICENSE_KEY: ${ssm:/${self:custom.serviceName}/${env:STAGE}/NSOLID_LICENSE_KEY~true}
 
 custom:
   serviceName: fii-auth
