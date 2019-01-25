@@ -12,7 +12,7 @@ provider:
     TOKEN_ISSUER: ${ssm:/${self:custom.serviceName}/${env:STAGE}/TOKEN_ISSUER~true}
   iamRoleStatements:
     - Effect: Allow
-      Resource: arn:aws:lambda:us-west-2:800406105498:layer:nsolid-node-10:6
+      Resource: '*'
       Action:
         - lambda:GetFunction
         - lambda:GetFunctionConfiguration
@@ -36,6 +36,8 @@ functions:
   auth:
     handler: src/handlers/authorizer/index.default
     cors: true
+    layers:
+      - arn:aws:lambda:us-west-2:800406105498:layer:nsolid-node-10:6
     events:
       - http:
           path: /auth
@@ -43,6 +45,8 @@ functions:
   health:
     handler: src/handlers/healthCheck/index.default
     cors: true
+    layers:
+      - arn:aws:lambda:us-west-2:800406105498:layer:nsolid-node-10:6
     events:
       - http:
           path: /health
