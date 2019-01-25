@@ -30,8 +30,6 @@ functions:
   auth:
     handler: src/handlers/authorizer/index.default
     cors: true
-    layers:
-      - arn:aws:lambda:us-east-1:800406105498:layer:nsolid-node-8:6
     events:
       - http:
           path: /auth
@@ -39,8 +37,6 @@ functions:
   health:
     handler: src/handlers/healthCheck/index.default
     cors: true
-    layers:
-      - arn:aws:lambda:us-east-1:800406105498:layer:nsolid-node-8:6
     events:
       - http:
           path: /health
@@ -52,44 +48,10 @@ functions:
             resultTtlInSeconds: 0
 
 resources:
-  Resources:
-    AuthFailureGatewayResponse:
-      Type: 'AWS::ApiGateway::GatewayResponse'
-      Properties:
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-        ResponseType: UNAUTHORIZED
-        RestApiId:
-          Ref: 'ApiGatewayRestApi'
-        StatusCode: '401'
-    GatewayResponse:
-      Type: 'AWS::ApiGateway::GatewayResponse'
-      Properties:
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-        ResponseType: EXPIRED_TOKEN
-        RestApiId:
-          Ref: 'ApiGatewayRestApi'
-        StatusCode: '401'
-    CognitoUserPoolClient:
-      Type: AWS::Cognito::UserPoolClient
-      Properties:
-        ClientName: ${self:custom.stage}-user-pool-client
-        UserPoolId:
-          Ref: CognitoUserPool
-        ExplicitAuthFlows:
-          - ADMIN_NO_SRP_AUTH
-        GenerateSecret: false
-    CognitoUserPool:
-      Type: AWS::Cognito::UserPool
-      Properties:
-        UserPoolName: ${self:custom.stage}-user-pool
-        UsernameAttributes:
-          - email
-        AutoVerifiedAttributes:
-          - email
+  - ${file(./resources/FailResponse.yml)}
+  - ${file(./resources/GatewayResponse.yml)}
+  - ${file(./resources/CognitoUserPoolClient.yml)}
+  - ${file(./resources/CognitoUserPool.yml)}
 
 Outputs:
   UserPoolId:
