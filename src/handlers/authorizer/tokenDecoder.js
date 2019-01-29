@@ -8,16 +8,20 @@ export default class TokenDecoder {
   }
 
   async decode() {
-    const signingKey = await generateSignKey()
-    const jwtOptions = {
-      audience: process.env.AUDIENCE,
-      issuer: process.env.TOKEN_ISSUER
-    }
+    try {
+      const signingKey = await this.generateSignKey()
+      const jwtOptions = {
+        audience: process.env.AUDIENCE,
+        issuer: process.env.TOKEN_ISSUER
+      }
 
-    const verifiedJWT = jwt.verify(this.token, signingKey, jwtOptions)
-    console.log({ event })
-    console.log({ verifiedJWT })
-    return verifiedJWT
+      const verifiedJWT = jwt.verify(this.token, signingKey, jwtOptions)
+      console.log('event', { event })
+      console.log('verifiedJWT', { verifiedJWT })
+      return verifiedJWT
+    } catch (error) {
+      return error
+    }
   }
 
   async generateSignKey() {
@@ -29,8 +33,16 @@ export default class TokenDecoder {
     })
 
     const { kid } = this.decodedToken.header
-    const key = await jwks.getSigningKey(kid)
-    return key.publicKey || key.rsaPublicKey
+    console.log('token', token)
+    console.log('decodedToken', JSON.stringify(this.decodedToken,null ,4))
+
+    try {
+      const key = await jwks.getSigningKey(kid)
+      console.log('key', key)
+      return key.publicKey || key.rsaPublicKey
+    } catch (error) {
+      throw new Error(error)
+    }
   }
 
   decodeJWT() {
