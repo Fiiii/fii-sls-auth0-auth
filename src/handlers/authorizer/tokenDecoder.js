@@ -29,13 +29,13 @@ export default class TokenDecoder {
   }
 
   async generateSignKey() {
-    const jwks = jwks({
+    console.log('before jwks')
+    const jwks = await jwks({
       cache: true,
       rateLimit: true,
       jwksRequestsPerMinute: 10,
       jwksUri: process.env.JWKS_URI
     })
-
     console.log('2')
     const getSigningKey = util.promisify(jwks.getSigningKey)
     const key = await getSigningKey(this.decodedToken.header.kid)
