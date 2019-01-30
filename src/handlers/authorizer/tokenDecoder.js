@@ -8,6 +8,7 @@ export default class TokenDecoder {
   }
 
   async decode() {
+    console.log('Decoding')
     try {
       const signingKey = await this.generateSignKey()
       const jwtOptions = {
