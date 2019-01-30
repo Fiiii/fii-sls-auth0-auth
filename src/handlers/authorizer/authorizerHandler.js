@@ -8,7 +8,7 @@ export default class ApiAuthorizerHandler extends BaseHandler {
 
   async _process(event, context) {
     const tokenDecoder = new TokenDecoder(event)
-    const verifiedJWT = tokenDecoder.decode()
+    const verifiedJWT = await tokenDecoder.decode()
 
     return {
       principalId: verifiedJWT.sub,
