@@ -21,12 +21,12 @@ export default class TokenDecoder {
         issuer: process.env.TOKEN_ISSUER
       }
       console.log('5')
-      const verifiedJWT = jwt.verify(this.token, signingKey, jwtOptions)
+      const verifiedJWT = await JWT.verify(this.token, signingKey, jwtOptions)
       console.log('event', { event })
       console.log('verifiedJWT', { verifiedJWT })
       return verifiedJWT
     } catch (error) {
-      return error
+      throw new Error(error)
     }
   }
 
