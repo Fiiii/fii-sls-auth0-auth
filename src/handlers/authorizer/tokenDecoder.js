@@ -13,14 +13,13 @@ export default class TokenDecoder {
     try {
       console.log('1')
       const signingKey = await this.generateSignKey()
-      console.log('2')
+      console.log('4')
       const jwtOptions = {
         audience: process.env.AUDIENCE,
         issuer: process.env.TOKEN_ISSUER
       }
-      console.log('3')
+      console.log('5')
       const verifiedJWT = jwt.verify(this.token, signingKey, jwtOptions)
-      console.log('4')
       console.log('event', { event })
       console.log('verifiedJWT', { verifiedJWT })
       return verifiedJWT
@@ -37,8 +36,10 @@ export default class TokenDecoder {
       jwksUri: process.env.JWKS_URI
     })
 
+    console.log('2')
     const getSigningKey = util.promisify(jwks.getSigningKey)
-    const key = await getSigningKey(decodedJwt.header.kid)
+    const key = await getSigningKey(this.decodedToken.header.kid)
+    console.log('3')
     console.log('token', token)
     console.log('decodedToken', JSON.stringify(this.decodedToken,null ,4))
 
