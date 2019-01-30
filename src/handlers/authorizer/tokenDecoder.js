@@ -11,13 +11,16 @@ export default class TokenDecoder {
   async decode() {
     console.log('Decoding')
     try {
+      console.log('1')
       const signingKey = await this.generateSignKey()
+      console.log('2')
       const jwtOptions = {
         audience: process.env.AUDIENCE,
         issuer: process.env.TOKEN_ISSUER
       }
-
+      console.log('3')
       const verifiedJWT = jwt.verify(this.token, signingKey, jwtOptions)
+      console.log('4')
       console.log('event', { event })
       console.log('verifiedJWT', { verifiedJWT })
       return verifiedJWT
