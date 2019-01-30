@@ -4,24 +4,20 @@ import * as util from 'util'
 
 export default class TokenDecoder {
   constructor(event) {
-    console.log('EVENT:', event)
     this.token = this.getToken(event)
     this.decodedToken = this.decodeJWT()
   }
 
   async decode() {
-    console.log('Decoding')
-    console.log('token', this.token)
-    console.log('decodedToken', JSON.stringify(this.decodedToken, null, 4))
     try {
       const signingKey = await this.generateSignKey()
+
       const jwtOptions = {
         audience: process.env.AUDIENCE,
         issuer: process.env.TOKEN_ISSUER
       }
 
       const verifiedJWT = await JWT.verify(this.token, signingKey, jwtOptions)
-      console.log('verifiedJWT', { verifiedJWT })
       return verifiedJWT
     } catch (error) {
       throw new Error(error)
@@ -30,7 +26,6 @@ export default class TokenDecoder {
 
   async generateSignKey() {
     try {
-      console.log('before jwks')
       const jwks = await jwksClient({
         cache: true,
         rateLimit: true,
