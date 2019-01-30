@@ -10,6 +10,8 @@ export default class TokenDecoder {
 
   async decode() {
     console.log('Decoding')
+    console.log('token', this.token)
+    console.log('decodedToken', JSON.stringify(this.decodedToken, null, 4))
     try {
       console.log('1')
       const signingKey = await this.generateSignKey()
@@ -29,23 +31,20 @@ export default class TokenDecoder {
   }
 
   async generateSignKey() {
-    console.log('before jwks')
-
-    const jwks = await jwksClient({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 10,
-      jwksUri: process.env.JWKS_URI
-    })
-
-    console.log('2')
-    const getSigningKey = util.promisify(jwks.getSigningKey)
-    const key = await getSigningKey(this.decodedToken.header.kid)
-    console.log('3')
-    console.log('token', token)
-    console.log('decodedToken', JSON.stringify(this.decodedToken,null ,4))
-
     try {
+      console.log('before jwks')
+
+      const jwks = await jwksClient({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 10,
+        jwksUri: process.env.JWKS_URI
+      })
+
+      console.log('2')
+      const getSigningKey = util.promisify(jwks.getSigningKey)
+      const key = await getSigningKey(this.decodedToken.header.kid)
+      console.log('3')
       const key = await jwks.getSigningKey(kid)
       console.log('key', key)
       return key.publicKey || key.rsaPublicKey
