@@ -44,7 +44,7 @@ functions:
           method: get
           authorizer:
             name: health-authorizer
-            arn: arn:aws:lambda:us-east-1:568614285549:function:fii-auth-dev-auth
+            arn: arn:aws:lambda:us-east-1:568614285549:function:fii-auth-development-auth
             identitySource: method.request.header.Authorization
             resultTtlInSeconds: 0
 
