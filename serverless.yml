@@ -10,6 +10,7 @@ provider:
   runtime: nodejs8.10
   region: ${env:REGION}
   logRetentionInDays: 3
+  versionFunctions: false
   # profile: ${env:PROFILE}
   environment:
     JWKS_URI: ${ssm:/${self:custom.serviceName}/${env:STAGE}/JWKS_URI~true}
