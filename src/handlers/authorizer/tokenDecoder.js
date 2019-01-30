@@ -45,7 +45,6 @@ export default class TokenDecoder {
       const getSigningKey = util.promisify(jwks.getSigningKey)
       const key = await getSigningKey(this.decodedToken.header.kid)
       console.log('3')
-      const key = await jwks.getSigningKey(kid)
       console.log('key', key)
       return key.publicKey || key.rsaPublicKey
     } catch (error) {
