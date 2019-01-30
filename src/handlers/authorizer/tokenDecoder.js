@@ -21,7 +21,6 @@ export default class TokenDecoder {
       }
 
       const verifiedJWT = await JWT.verify(this.token, signingKey, jwtOptions)
-      console.log('event', { event })
       console.log('verifiedJWT', { verifiedJWT })
       return verifiedJWT
     } catch (error) {
