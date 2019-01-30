@@ -1,5 +1,5 @@
 import * as JWT from 'jsonwebtoken'
-import * as jwks from 'jwks-rsa'
+import * as jwksClient from 'jwks-rsa'
 import * as util from 'util'
 
 export default class TokenDecoder {
@@ -30,12 +30,14 @@ export default class TokenDecoder {
 
   async generateSignKey() {
     console.log('before jwks')
-    const jwks = await jwks({
+
+    const jwks = await jwksClient({
       cache: true,
       rateLimit: true,
       jwksRequestsPerMinute: 10,
       jwksUri: process.env.JWKS_URI
     })
+
     console.log('2')
     const getSigningKey = util.promisify(jwks.getSigningKey)
     const key = await getSigningKey(this.decodedToken.header.kid)
