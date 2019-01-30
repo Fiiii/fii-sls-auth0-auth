@@ -1,5 +1,6 @@
 import * as JWT from 'jsonwebtoken'
 import * as jwks from 'jwks-rsa'
+import * as util from 'util'
 
 export default class TokenDecoder {
   constructor(event) {
@@ -33,7 +34,8 @@ export default class TokenDecoder {
       jwksUri: process.env.JWKS_URI
     })
 
-    const { kid } = this.decodedToken.header
+    const getSigningKey = util.promisify(jwks.getSigningKey)
+    const key = await getSigningKey(decodedJwt.header.kid)
     console.log('token', token)
     console.log('decodedToken', JSON.stringify(this.decodedToken,null ,4))
 
