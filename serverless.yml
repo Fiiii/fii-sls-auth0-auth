@@ -16,6 +16,7 @@ provider:
     JWKS_URI: ${ssm:/${self:custom.serviceName}/${env:STAGE}/JWKS_URI~true}
     AUDIENCE: ${ssm:/${self:custom.serviceName}/${env:STAGE}/AUDIENCE~true}
     TOKEN_ISSUER: ${ssm:/${self:custom.serviceName}/${env:STAGE}/TOKEN_ISSUER~true}
+    TOKEN_ISSUER_COGNITO: ${ssm:/${self:custom.serviceName}/${env:STAGE}/TOKEN_ISSUER_COGNITO~true}
     AUTHORIZER_ARN : ${ssm:/${self:custom.serviceName}/${env:STAGE}/AUTHORIZER_ARN~true}
     # NSOLID_LICENSE_KEY: ${ssm:/${self:custom.serviceName}/${env:STAGE}/NSOLID_LICENSE_KEY~true}
 

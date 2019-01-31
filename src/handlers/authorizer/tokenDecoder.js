@@ -11,14 +11,12 @@ export default class TokenDecoder {
   async decode() {
     try {
       const signingKey = await this.generateSignKey()
-
       const jwtOptions = {
         audience: process.env.AUDIENCE,
-        issuer: process.env.TOKEN_ISSUER
+        issuer: process.env.TOKEN_ISSUER_COGNITO
       }
 
-      const verifiedJWT = await JWT.verify(this.token, signingKey, jwtOptions)
-      return verifiedJWT
+      return await JWT.verify(this.token, signingKey, jwtOptions)
     } catch (error) {
       throw new Error(error)
     }
