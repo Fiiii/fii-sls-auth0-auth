@@ -4,8 +4,7 @@ const handler = async (event) => {
   try {
     console.log('Auth')
     const apiAuthorizerHandler = new ApiAuthorizerHandler()
-    const policy = await apiAuthorizerHandler._process(event)
-    return policy
+    return await apiAuthorizerHandler._process(event)
   } catch (error) {
     console.log(error)
     throw new Error('Unauthorized')
