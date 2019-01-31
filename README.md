@@ -71,6 +71,54 @@ $ yarn get:env
 
 ---
 
+### Authentication
+
+## Cognito
+
+ISSUER: https://cognito-idp.{region}.amazonaws.com/{userPoolId}.
+JWKS_URI_COGNITO: https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json
+
+	* AWS Cognito -> Create a user pool
+	* Create basic app for authentication by providing:
+```
+aws cognito-idp create-user-pool-client --user-pool-id {user_pool_id} --allowed-o-auth-flows client_credentials --client-name {client_name} --generate-secret --allowed-o-auth-flows-user-pool-client
+```
+	* Add domain name for tokens fetching, you can do this by cli or AWS console
+```
+cognito-idp create-user-pool-domain  --domain {your_domain_name} --user-pool-id {user_pool_id}
+```
+
+	* encode client id and secret by:
+`$ echo -n ‚ClientId:ClientSecret’ | openssl base64`
+
+And then:
+```
+curl -X POST \
+  https://{domainName}.auth.us-east-1.amazoncognito.com/oauth2/token \
+  -H 'authorization: Basic ENCODED_HASH' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'grant_type=client_credentials'
+```
+
+Done. :)
+
+
+## AUTH0
+1. Create new application, `machine-to-machine` type
+2. Create new api, provide your fancy name for it and identifier
+3. Go to the applications -> your application, api and connect application with api from previous point
+
+
+ISSUER: application identifier i.e https://fii.auth0.com/
+JWKS_URI: https://fii.auth0.com/.well-known/jwks.json
+AUDIENCE: https://fii-auth-dev/
+
+Done. :)
+
+---
+
+All environment params should be added via yarn add:env
+
 ### Troubleshooting
 
 > it means that probably ssm value doesnt exists in ssm service

@@ -55,8 +55,8 @@ functions:
 resources:
   - ${file(./resources/FailResponse.yml)}
   - ${file(./resources/GatewayResponse.yml)}
-  - ${file(./resources/CognitoUserPoolClient.yml)}
   - ${file(./resources/CognitoUserPool.yml)}
+  # - ${file(./resources/CognitoUserPoolClient.yml)}
 
 Outputs:
   UserPoolId:
