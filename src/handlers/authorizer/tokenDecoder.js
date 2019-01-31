@@ -12,7 +12,7 @@ export default class TokenDecoder {
     try {
       const signingKey = await this.generateSignKey()
       const jwtOptions = {
-        audience: process.env.AUDIENCE,
+        // audience: process.env.AUDIENCE,
         issuer: process.env.TOKEN_ISSUER_COGNITO
       }
 
@@ -28,7 +28,7 @@ export default class TokenDecoder {
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 10,
-        jwksUri: process.env.JWKS_URI
+        jwksUri: process.env.JWKS_URI_COGNITO
       })
 
       const getSigningKey = util.promisify(jwks.getSigningKey)
