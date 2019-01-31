@@ -78,20 +78,20 @@ $ yarn get:env
 ISSUER: https://cognito-idp.{region}.amazonaws.com/{userPoolId}.
 JWKS_URI_COGNITO: https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json
 
-	* AWS Cognito -> Create a user pool
-	* Create basic app for authentication by providing:
+> AWS Cognito -> Create a user pool
+> Create basic app for authentication by providing:
 ```
 aws cognito-idp create-user-pool-client --user-pool-id {user_pool_id} --allowed-o-auth-flows client_credentials --client-name {client_name} --generate-secret --allowed-o-auth-flows-user-pool-client
 ```
-	* Add domain name for tokens fetching, you can do this by cli or AWS console
+> Add domain name for tokens fetching, you can do this by cli or AWS console
 ```
 cognito-idp create-user-pool-domain  --domain {your_domain_name} --user-pool-id {user_pool_id}
 ```
 
-	* encode client id and secret by:
+> Encode client id and secret by:
 `$ echo -n ‚ClientId:ClientSecret’ | openssl base64`
 
-And then:
+> Then:
 ```
 curl -X POST \
   https://{domainName}.auth.us-east-1.amazoncognito.com/oauth2/token \
