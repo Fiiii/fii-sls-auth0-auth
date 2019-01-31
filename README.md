@@ -75,8 +75,8 @@ $ yarn get:env
 
 ## Cognito
 
-ISSUER: https://cognito-idp.{region}.amazonaws.com/{userPoolId}.
-JWKS_URI_COGNITO: https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json
+- ISSUER: https://cognito-idp.{region}.amazonaws.com/{userPoolId}
+- JWKS_URI_COGNITO: https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/jwks.json
 
 > AWS Cognito -> Create a user pool
 > Create basic app for authentication by providing:
@@ -109,9 +109,9 @@ Done. :)
 3. Go to the applications -> your application, api and connect application with api from previous point
 
 
-ISSUER: application identifier i.e https://fii.auth0.com/
-JWKS_URI: https://fii.auth0.com/.well-known/jwks.json
-AUDIENCE: https://fii-auth-dev/
+- ISSUER: application identifier i.e https://fii.auth0.com/
+- JWKS_URI: https://fii.auth0.com/.well-known/jwks.json
+- AUDIENCE: https://fii-auth-dev/
 
 Done. :)
 
