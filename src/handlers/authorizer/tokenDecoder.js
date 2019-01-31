@@ -12,7 +12,7 @@ export default class TokenDecoder {
     try {
       const signingKey = await this.generateSignKey()
       const jwtOptions = {
-        // audience: process.env.AUDIENCE,
+        // audience: process.env.AUDIENCE, # use it if you want to use auth0
         issuer: process.env.TOKEN_ISSUER_COGNITO
       }
 
