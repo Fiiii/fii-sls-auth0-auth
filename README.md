@@ -1,9 +1,10 @@
 AUTH0 & COGNITO AUTH 😈
 ======
 
+` This service allows creating custom authorizer with authorizing methods provided by Auth0 or Cognito `
  <p align="center">
   <a href="https://serverless.com"><img src="https://user-images.githubusercontent.com/2752551/30405068-a7733b34-989e-11e7-8f66-7badaf1373ed.png" height="300" width="300"></a>
-  <a href="https://serverless.com"><img src="https://media.giphy.com/media/Lny6Rw04nsOOc/giphy.gif" height="300" width="300"></a>
+  <a href="https://serverless.com"><img src="https://s3.amazonaws.com/fii-assets/Zrzut+ekranu+2019-01-31+o+13.38.57.png" height="300" width="300"></a>
 </p>
 
  ---
