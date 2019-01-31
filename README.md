@@ -1,6 +1,5 @@
-<p align="center">
-  <b>Sls project template😈</b>
-</p>
+AUTH0 & COGNITO AUTH 😈
+======
 
  <p align="center">
   <a href="https://serverless.com"><img src="https://user-images.githubusercontent.com/2752551/30405068-a7733b34-989e-11e7-8f66-7badaf1373ed.png" height="300" width="300"></a>
