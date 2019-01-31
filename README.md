@@ -26,7 +26,8 @@
 
 ## Installation
 
-### Clone
+### Clone :zap:
+
 - Clone this repo to your local machine using `git clone https://github.com/Fiiii/fii-sls.git`
 > or
 - By using globally installed serverless:
@@ -36,7 +37,7 @@ $ yarn global add serverless
 $ sls install https://github.com/Fiiii/fii-sls.git
 ```
 
-### Setup
+### Setup :wrench:
 
 > create proper env file by using
 ```shell
@@ -57,7 +58,7 @@ $ yarn offline
 
 ---
 
-### Environments
+### Environments :key:
 
 ## Add new env
 ```shell
@@ -71,7 +72,7 @@ $ yarn get:env
 
 ---
 
-### Authentication
+### Authentication :lock:
 
 ## Cognito
 
@@ -119,7 +120,7 @@ Done. :)
 
 All environment params should be added via yarn add:env
 
-### Troubleshooting
+### Troubleshooting :trollface:
 
 > it means that probably ssm value doesnt exists in ssm service
 ```shell
