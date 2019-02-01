@@ -13,7 +13,7 @@ export default class TokenDecoder {
       const signingKey = await this.generateSignKey()
       const jwtOptions = {
         // audience: process.env.AUDIENCE, # use it if you want to use auth0
-        issuer: process.env.TOKEN_ISSUER_COGNITO
+        issuer: process.env.TOKEN_ISSUER
       }
 
       return await JWT.verify(this.token, signingKey, jwtOptions)
@@ -28,7 +28,7 @@ export default class TokenDecoder {
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 10,
-        jwksUri: process.env.JWKS_URI_COGNITO
+        jwksUri: process.env.JWKS_URI
       })
 
       const getSigningKey = util.promisify(jwks.getSigningKey)
