@@ -1,8 +1,4 @@
-import { getConnection } from '/opt/dbconnection/dbconnector'
-
 const handler = async (event) => {
-
-  console.log(await getConnection())
   try {
     return {
       body: JSON.stringify({
